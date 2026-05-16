@@ -79,8 +79,8 @@ class Cabbage:
 
 
 class Farmer:
-    FIRST_THROW    = 1.5
-    THROW_INTERVAL = 3.2
+    FIRST_THROW    = 0.2
+    THROW_INTERVAL = 2.5
     WINDUP_DUR     = 0.45
     THROW_DUR      = 0.25
 
