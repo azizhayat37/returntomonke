@@ -5,7 +5,7 @@ import pygame
 from menu import MenuScene
 from game import GameScene
 
-SNES_W, SNES_H = 256, 224
+SNES_W, SNES_H = 320, 240
 SCALE = 3
 WIN_W, WIN_H = SNES_W * SCALE, SNES_H * SCALE
 
@@ -42,7 +42,6 @@ def main():
             scene = GameScene()
         elif result == "menu":
             scene = MenuScene()
-        # "about" is unimplemented for now — stays on menu
 
         scene.draw(canvas)
         scaled = pygame.transform.scale(canvas, (WIN_W, WIN_H))

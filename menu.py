@@ -4,7 +4,7 @@ import random
 
 import pygame
 
-SNES_W, SNES_H = 256, 224
+SNES_W, SNES_H = 320, 240
 SCALE = 3
 
 # Palette
@@ -83,34 +83,24 @@ class MenuScene:
         self.f_med = pygame.font.Font(None, 14)
         self.f_sm  = pygame.font.Font(None, 10)
         self.btn_start = pygame.Rect(SNES_W // 2 - 44, 148, 88, 16)
-        self.btn_about = pygame.Rect(SNES_W // 2 - 44, 170, 88, 16)
-        self.buttons   = [self.btn_start, self.btn_about]
-        self.labels    = ["START GAME", "ABOUT"]
+        self.buttons   = [self.btn_start]
+        self.labels    = ["START GAME"]
 
     def update(self, events, dt):
         self.tick += 1
         for ev in events:
             if ev.type == pygame.KEYDOWN:
-                if ev.key in (pygame.K_UP, pygame.K_w):
-                    self.sel = 0
-                elif ev.key in (pygame.K_DOWN, pygame.K_s):
-                    self.sel = 1
-                elif ev.key in (pygame.K_RETURN, pygame.K_SPACE):
-                    return "start" if self.sel == 0 else "about"
+                if ev.key in (pygame.K_RETURN, pygame.K_SPACE):
+                    return "start"
                 elif ev.key == pygame.K_ESCAPE:
                     import sys, pygame as pg
                     pg.quit(); __import__('sys').exit()
-            if ev.type == pygame.MOUSEMOTION:
-                mx, my = ev.pos[0] // SCALE, ev.pos[1] // SCALE
-                for i, r in enumerate(self.buttons):
-                    if r.collidepoint(mx, my):
-                        self.sel = i
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 mx, my = ev.pos[0] // SCALE, ev.pos[1] // SCALE
                 for i, r in enumerate(self.buttons):
                     if r.collidepoint(mx, my):
                         self.sel = i
-                        return "start" if i == 0 else "about"
+                        return "start"
         return None
 
     def draw(self, surf):
@@ -147,13 +137,9 @@ class MenuScene:
         _draw_barrel(surf, 44,            104)
         _draw_barrel(surf, SNES_W - 44,   104)
 
-        # Nav hint (blinks)
-        if (t // 25) % 2 == 0:
-            _blit_cx(surf, self.f_sm.render("UP / DOWN  OR  MOUSE  TO  NAVIGATE", False, DIM), 137)
-
         # Buttons
         for i, (r, lbl) in enumerate(zip(self.buttons, self.labels)):
             _draw_button(surf, r, lbl, self.sel == i, self.f_med, self.f_sm)
 
         # Copyright
-        _blit_cx(surf, self.f_sm.render("(C) 2024  RETURN TO MONKE", False, (44, 44, 84)), 213)
+        _blit_cx(surf, self.f_sm.render("(C) 2024  RETURN TO MONKE", False, (44, 44, 84)), 229)

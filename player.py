@@ -85,7 +85,7 @@ class Player:
                 self.vy = 0.0
                 self.on_ground = True
 
-        self.x = max(COLL_HW + 2.0, min(256 - COLL_HW - 2.0, self.x))
+        self.x = max(COLL_HW + 2.0, min(320 - COLL_HW - 2.0, self.x))
 
         if self.vx != 0 and self.on_ground:
             self.walk_timer += dt

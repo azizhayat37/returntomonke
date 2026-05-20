@@ -55,11 +55,11 @@ class Cabbage:
         if self.x - RADIUS < 0:
             self.x  = float(RADIUS)
             self.vx =  ROLL_SPEED
-        elif self.x + RADIUS > 256:
-            self.x  = float(256 - RADIUS)
+        elif self.x + RADIUS > 320:
+            self.x  = float(320 - RADIUS)
             self.vx = -ROLL_SPEED
 
-        if self.y > 600:
+        if self.y > 700:
             self.alive = False
 
     def hits(self, px, py):
@@ -85,12 +85,13 @@ class Farmer:
     THROW_DUR      = 0.25
 
     def __init__(self, x, y):
-        self.x       = x
-        self.y       = y
-        self.timer   = self.FIRST_THROW
-        self.phase   = "idle"
-        self.phase_t = 0.0
-        self._thrown = False
+        self.x              = x
+        self.y              = y
+        self.timer          = self.FIRST_THROW
+        self.throw_interval = self.THROW_INTERVAL   # mutable by GameScene
+        self.phase          = "idle"
+        self.phase_t        = 0.0
+        self._thrown        = False
 
     def update(self, dt):
         self.timer -= dt
@@ -115,7 +116,7 @@ class Farmer:
                 self._thrown = True
             if self.phase_t >= self.THROW_DUR:
                 self.phase = "idle"
-                self.timer = self.THROW_INTERVAL
+                self.timer = self.throw_interval
 
         return spawned
 
